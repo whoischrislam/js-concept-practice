@@ -13,4 +13,28 @@
     --hr: #D2D2D2;
     --black: #000000;
     --secondary-text-gray: #8B8B8B;
+    --font: "Smythe", system-ui;
+}
+
+html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Smythe", system-ui;
+    width:100vw;
+    height:100vh;
+}
+body {
+    width: 100%;
+}
+
+main { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+img {
+    width: 100%;
 }
