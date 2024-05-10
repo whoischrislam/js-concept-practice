@@ -36,11 +36,11 @@ function renderMenu(menuData) {
                     </div>
                     <div class="menu-item-info">
                         <div class="menu-item-name">${name}</div>
-                        <div class="menu-item-ingredients">${ingredients}</div>
+                        <div class="menu-item-ingredients">${ingredients.join(", ")}</div>
                         <div class="menu-item-price">$${price}</div>
                     </div>
                 </div>
-                <button class="menu-item-btn">+</button>
+                <button class="menu-item-btn" data-id="${id}">+</button>
             </div>
             <hr />
         `;
@@ -48,3 +48,27 @@ function renderMenu(menuData) {
     
     menuContainer.innerHTML = currentMenu;
 }
+
+// event listener for add button
+document.addEventListener("click", (e) => {
+    // check if the click target has an item id
+    if(e.target.dataset.id) {
+        console.log(e.target.dataset.id)
+        // saving the item object into a variable based on the id of the target
+        const itemToAddObj = menuData.filter((item) => {
+            console.log(item.id)
+            return item.id === parseInt(e.target.dataset.id)
+        })
+        console.log(itemToAddObj);
+        // convert object to order item
+        const {name, price} = itemToAddObj[0]
+        const orderItem = {
+            name,
+            price
+        }
+        console.log(orderItem)
+        // add object to order
+        currentOrder.push(orderItem);
+        console.log(`Current order: ${JSON.stringify(currentOrder)}`)
+    }
+})
