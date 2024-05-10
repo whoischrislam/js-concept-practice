@@ -53,6 +53,9 @@ function renderMenu(menuData) {
 document.addEventListener("click", (e) => {
     // check if the click target has an item id
     if(e.target.dataset.id) {
+
+        // WRITE a seperate function for handling selection
+
         console.log(e.target.dataset.id)
         // saving the item object into a variable based on the id of the target
         const itemToAddObj = menuData.filter((item) => {
@@ -60,9 +63,13 @@ document.addEventListener("click", (e) => {
             return item.id === parseInt(e.target.dataset.id)
         })
         console.log(itemToAddObj);
+
+        // WRITE a seperate function for converting + adding item to order
+
         // convert object to order item
-        const {name, price} = itemToAddObj[0]
+        const {name, id, price} = itemToAddObj[0]
         const orderItem = {
+            id,
             name,
             price
         }
@@ -70,5 +77,25 @@ document.addEventListener("click", (e) => {
         // add object to order
         currentOrder.push(orderItem);
         console.log(`Current order: ${JSON.stringify(currentOrder)}`)
+
+        // WRITE A SEPERATE RENDER FUNCTION
+
+
+        // CONTINUE HERE; NEED TO CREATE A NEW CONTAINER DIV FOR 'YOUR ORDER' + MANAGING THE DATA CHANGES TO ADD AND REMOVE ORDER ITEMS
+        // Render
+        const orderMenu = currentOrder.map( orderItem => { 
+            console.log("-----ORDER----")
+            const {name, id, price} = orderItem
+            return `
+                <div class="menu-item">
+                    <div class="order-names">
+                        <div class="order-item-name">${name}</div>
+                        <div class="order-item-remove" data-id="${id}">remove</div>
+                    </div>
+                    <div class="order-item-price">$${price}</div>
+                </div>
+            `;
+        });
+        menuContainer.innerHTML += orderMenu;
     }
 })
