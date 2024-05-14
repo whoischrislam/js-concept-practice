@@ -15,6 +15,11 @@ const menuContainer = document.createElement("div");
 menuContainer.id = "menu";
 const orderContainer = document.createElement("div");
 orderContainer.id = "order";
+const orderHeader = document.createElement("h2");
+orderHeader.id = "orderHeader";
+orderHeader.textContent = "Your order";
+const orderItems = document.createElement("div");
+orderItems.id = "orderItems";
 
 // appending elements
 main.append(menuContainer);
@@ -66,18 +71,21 @@ function renderOrder(orderArr) {
             </div>
         `;
     }).join("");
-    orderContainer.innerHTML = orderMenu;
+    orderItems.innerHTML = orderMenu;
 }
 
 function handleClick (e) {
     // Check if selected item is menu or order
     if(e.target.closest(".menu-item")) {
         // MENU ITEM
+// 1) Refactor HTML structure to include "YOUR ORDER" header for the order container
+// 2) Add calculations to the order items total. There are 3 divs that need to be under the umbrella of <div id="order">. <h2>Your order</h2>, order items -> <order items array><total price>, <button>Complete order</button> 
         // Order div container
         const orderExists = document.getElementById("order")
         if(!orderExists) {
             console.log("APPENDING ORDER CONTAINER")
             main.append(orderContainer)
+            orderContainer.append(orderHeader, orderItems);
         }        
         // Adding to order
         // saving the item object into a variable based on the id of the target
