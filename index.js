@@ -5,6 +5,9 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 // Order array
 const currentOrder = [];
 
+// Order total
+const totalPrice = 0;
+
 // references to existing DOM elements
 const main = document.querySelector("main");
 const emptyContent = document.getElementById("empty-content")
@@ -20,6 +23,14 @@ orderHeader.id = "orderHeader";
 orderHeader.textContent = "Your order";
 const orderItems = document.createElement("div");
 orderItems.id = "orderItems";
+const priceDivider = document.createElement("hr");
+priceDivider.id = "priceDivider";
+const orderTotal = document.createElement("div");
+orderTotal.id = "orderTotal"
+orderTotal.innerHTML = `
+    <div class="order-label">Total price:</div>
+    <div class="order-price">$${totalPrice}</div>
+`;
 
 // appending elements
 main.append(menuContainer);
@@ -78,14 +89,12 @@ function handleClick (e) {
     // Check if selected item is menu or order
     if(e.target.closest(".menu-item")) {
         // MENU ITEM
-// 1) Refactor HTML structure to include "YOUR ORDER" header for the order container
-// 2) Add calculations to the order items total. There are 3 divs that need to be under the umbrella of <div id="order">. <h2>Your order</h2>, order items -> <order items array><total price>, <button>Complete order</button> 
         // Order div container
         const orderExists = document.getElementById("order")
         if(!orderExists) {
             console.log("APPENDING ORDER CONTAINER")
             main.append(orderContainer)
-            orderContainer.append(orderHeader, orderItems);
+            orderContainer.append(orderHeader, orderItems, priceDivider, orderTotal);
         }        
         // Adding to order
         // saving the item object into a variable based on the id of the target
